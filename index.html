@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blog</title>
+    <style>
+        /* Embedded CSS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        main h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="?id=1">Importance of Education</a></li>
+                <li><a href="?id=2">Mount Everest</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="blog-content">
+            <!-- Blog content will be dynamically loaded here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Blog. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Embedded JavaScript
+        const blogs = {
+            1: {
+                title: "Importance of Education",
+                content: `
+                    Education is the key to unlocking countless opportunities in life. 
+                    It empowers individuals to achieve their dreams, improves decision-making, 
+                    and contributes to societal development. 
+                    A good education system fosters creativity, critical thinking, and innovation, 
+                    laying the foundation for a brighter future.
+                `,
+            },
+            2: {
+                title: "Mount Everest",
+                content: `
+                    Mount Everest, the highest peak in the world, stands tall at 8,848 meters (29,029 feet). 
+                    Located in the Himalayas, it symbolizes adventure and resilience. 
+                    Every year, climbers from around the world attempt to reach its summit, facing 
+                    extreme weather and challenging terrains. It remains a global icon of natural beauty and human determination.
+                `,
+            },
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const blogId = params.get('id');
+        const blogContent = document.getElementById('blog-content');
+
+        if (blogId && blogs[blogId]) {
+            const blog = blogs[blogId];
+            blogContent.innerHTML = `<h2>${blog.title}</h2><p>${blog.content}</p>`;
+        } else {
+            blogContent.innerHTML = "<p>Blog not found. Please select a valid blog.</p>";
+        }
+    </script>
+</body>
+</html>

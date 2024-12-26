@@ -3,71 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog</title>
+    <title>Mohit Gautam Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Embedded CSS */
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --accent-color: #e74c3c;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
         }
 
         header {
-            background-color: #333;
+            background-color: var(--secondary-color);
             color: white;
-            padding: 20px;
-            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header h1 {
             margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
         }
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin-right: 20px;
-        }
-
-        nav ul li a {
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
             color: white;
+            cursor: pointer;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            height: 100vh;
+            padding: 2rem 1rem;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            overflow-y: auto;
+            transition: left 0.3s ease-in-out;
+            z-index: 999;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar ul li a {
+            color: var(--text-color);
             text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .sidebar ul li a:hover {
+            color: var(--primary-color);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        main {
+            max-width: 800px;
+            margin: 5rem auto 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #blog-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        #blog-content p {
+            margin-bottom: 1rem;
         }
 
         footer {
-            background-color: #333;
+            background-color: var(--secondary-color);
             color: white;
             text-align: center;
-            padding: 10px;
+            font-size: 0.8rem;
+            padding: 0.8rem;
             position: fixed;
             width: 100%;
             bottom: 0;
         }
 
-        main {
-            padding: 20px;
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
         }
 
-        main h2 {
-            color: #333;
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            header h1 {
+                text-align: center;
+                width: 100%;
+            }
+
+            main {
+                margin-top: 4rem;
+                padding: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>My Blog</h1>
-        <nav>
-            <ul>
-                <li><a href="?id=1">Importance of Education</a></li>
-                <li><a href="?id=2">Mount Everest</a></li>
-            </ul>
-        </nav>
+        <button class="hamburger" onclick="toggleSidebar()">☰</button>
+        <h1>Mohit Gautam Blog</h1>
     </header>
+
+    <div class="sidebar" id="sidebar">
+        <h2>Menu</h2>
+        <ul>
+            <li><a href="#" onclick="loadBlog('home')">Home</a></li>
+            <li><a href="#" onclick="loadBlog('everest')">Mount Everest</a></li>
+            <li><a href="#" onclick="loadBlog('education')">Importance of Education</a></li>
+        </ul>
+    </div>
 
     <main>
         <div id="blog-content">
@@ -76,43 +186,88 @@
     </main>
 
     <footer>
-        <p>&copy; 2024 My Blog. All rights reserved.</p>
+        <p>&copy; 2024 Mohit Gautam Blog. All rights reserved.</p>
     </footer>
 
     <script>
-        // Embedded JavaScript
         const blogs = {
-            1: {
-                title: "Importance of Education",
+            home: {
+                title: "Welcome to Mohit Gautam Blog",
                 content: `
-                    Education is the key to unlocking countless opportunities in life. 
-                    It empowers individuals to achieve their dreams, improves decision-making, 
-                    and contributes to societal development. 
-                    A good education system fosters creativity, critical thinking, and innovation, 
-                    laying the foundation for a brighter future.
-                `,
+                    <p>Welcome to Mohit Gautam Blog! Here, you'll find insightful articles on various topics, including natural wonders and the importance of education. Please select a blog post from the sidebar menu to start reading.</p>
+                    <p>Our featured articles include an exploration of Mount Everest, the world's highest peak, and a discussion on the crucial role of education in personal and societal development.</p>
+                    <p>Feel free to navigate through the posts and enjoy the content. If you have any questions or suggestions for future topics, don't hesitate to reach out!</p>
+                    <a href="#" class="btn" onclick="loadBlog('everest')">Read About Mount Everest</a>
+                `
             },
-            2: {
-                title: "Mount Everest",
+            everest: {
+                title: "Mount Everest: The Roof of the World",
                 content: `
-                    Mount Everest, the highest peak in the world, stands tall at 8,848 meters (29,029 feet). 
-                    Located in the Himalayas, it symbolizes adventure and resilience. 
-                    Every year, climbers from around the world attempt to reach its summit, facing 
-                    extreme weather and challenging terrains. It remains a global icon of natural beauty and human determination.
-                `,
+                    <p>Mount Everest, Earth's highest peak, stands as a testament to nature's grandeur and human perseverance. Towering at 8,848 meters (29,029 feet) above sea level, it has captivated the imagination of adventurers and scientists alike for generations.</p>
+                    <p>Located in the Mahalangur Himal sub-range of the Himalayas, Everest straddles the border between Nepal and Tibet. Its Nepali name, Sagarmatha, means "Forehead in the Sky," while its Tibetan name, Chomolungma, translates to "Goddess Mother of the World" – both names reflecting its awe-inspiring presence.</p>
+                    <p>The mountain's extreme altitude presents unique challenges to climbers, including severe weather conditions, treacherous icefalls, and the infamous "death zone" above 8,000 meters, where the human body rapidly deteriorates due to lack of oxygen.</p>
+                    <a href="#" class="btn" onclick="loadBlog('education')">Read About Education</a>
+                `
             },
+            education: {
+                title: "The Importance of Education",
+                content: `
+                    <p>Education is the cornerstone of personal and societal growth. It empowers individuals to reach their full potential, opening doors to countless opportunities and fostering critical thinking skills essential for navigating life's challenges.</p>
+                    <p>A robust education system not only imparts knowledge but also cultivates creativity, innovation, and adaptability – qualities crucial in our rapidly evolving world. It equips learners with the tools to analyze complex problems, make informed decisions, and contribute meaningfully to their communities.</p>
+                    <p>Moreover, education plays a pivotal role in promoting social equality, economic development, and global understanding. It breaks down barriers, challenges prejudices, and nurtures a more inclusive society.</p>
+                    <a href="#" class="btn" onclick="loadBlog('home')">Back to Home</a>
+                `
+            }
         };
 
-        const params = new URLSearchParams(window.location.search);
-        const blogId = params.get('id');
-        const blogContent = document.getElementById('blog-content');
-
-        if (blogId && blogs[blogId]) {
-            const blog = blogs[blogId];
-            blogContent.innerHTML = `<h2>${blog.title}</h2><p>${blog.content}</p>`;
-        } else {
-            blogContent.innerHTML = "<p>Blog not found. Please select a valid blog.</p>";
+        function getNewestBlog() {
+            const keys = Object.keys(blogs);
+            return blogs[keys[keys.length - 1]];
         }
+
+        function loadBlog(id) {
+            const blogContent = document.getElementById('blog-content');
+            const sidebar = document.getElementById('sidebar');
+            if (blogs[id]) {
+                document.title = `${blogs[id].title} - Mohit Gautam Blog`;
+                blogContent.innerHTML = `<h2>${blogs[id].title}</h2>${blogs[id].content}`;
+            } else {
+                blogContent.innerHTML = `
+                    <h2>404 - Blog Not Found</h2>
+                    <p>Sorry, the requested blog post could not be found. Please select a blog from the sidebar menu to read.</p>
+                `;
+            }
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('open');
+            }
+        }
+
+        window.onload = function () {
+            const newestBlog = getNewestBlog();
+            const blogContent = document.getElementById('blog-content');
+            blogContent.innerHTML = `<h2>${newestBlog.title}</h2>${newestBlog.content}`;
+            document.title = `${newestBlog.title} - Mohit Gautam Blog`;
+        };
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const hamburger = document.querySelector('.hamburger');
+            if (!sidebar.contains(event.target) && !hamburger.contains(event.target) && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        window.addEventListener('resize', function() {
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+            }
+        });
     </script>
 </body>
-</html>
+    </html>
